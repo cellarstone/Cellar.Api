@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  cellar.api:
+    image: cellar.api
+    build:
+      context: ./Cellar.Api
+      dockerfile: Dockerfile
