@@ -18,15 +18,15 @@ namespace Cellar.Api.Business.Implementation
             return rnd.Next(0, 1) == 0 ? "AVAILABLE" : "OCCUPIED";
         }
 
-        public List<CallendarItem> GetRoomCallendar(string roomId, int numberOfItems = 5, int? year = null, int? month = null)
+        public List<CalendarItem> GetRoomCalendar(string roomId, int numberOfItems = 5, int? year = null, int? month = null)
         {
             var date = (year != null && month != null) ? new DateTime(year.Value, month.Value, 5) : DateTime.Now;
 
             var rnd = new Random();
-            var list = new List<CallendarItem>();
+            var list = new List<CalendarItem>();
             for (var i = 0; i < numberOfItems; i++)
             {
-                list.Add(new CallendarItem { Date = DateTime.Now.AddDays(i), MeetingCount = rnd.Next(1, 15) });
+                list.Add(new CalendarItem { Date = DateTime.Now.AddDays(i), MeetingCount = rnd.Next(1, 15) });
             }
             return list;
         }

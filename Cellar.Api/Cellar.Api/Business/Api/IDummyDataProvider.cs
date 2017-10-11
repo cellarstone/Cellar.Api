@@ -14,7 +14,7 @@ namespace Cellar.Api.Business.Api
 
         string GetRandomRoomState(string roomId);
 
-        List<CallendarItem> GetRoomCallendar(string roomId, int numberOfItems = 5, int? year = null, int? month = null);
+        List<CalendarItem> GetRoomCalendar(string roomId, int numberOfItems = 5, int? year = null, int? month = null);
 
 
     }

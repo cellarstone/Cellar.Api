@@ -9,26 +9,26 @@ using Cellar.Api.Models;
 namespace Cellar.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Callendar")]
-    public class CallendarController : ControllerBase
+    [Route("api/Calendar")]
+    public class CalendarController : ControllerBase
     {
 
         [HttpGet("{roomId}")]
-        [Route("GetRoomCallendar/{roomId}")]
-        public List<CallendarItem> GetRoomCallendar(string roomId)
+        [Route("GetRoomCalendar/{roomId}")]
+        public List<CalendarItem> GetRoomCalendar(string roomId)
         {
-            var roomCallendar = DummyDataProvider.GetRoomCallendar(roomId);
+            var roomCalendar = DummyDataProvider.GetRoomCalendar(roomId);
 
-            return roomCallendar;
+            return roomCalendar;
         }
 
         [HttpGet("{year},{month},{roomId}")]
-        [Route("GetRoomCallendar/{year}/{month}/{roomId}")]
-        public List<CallendarItem> GetRoomCallendar(int year, int month, string roomId)
+        [Route("GetRoomCalendar/{year}/{month}/{roomId}")]
+        public List<CalendarItem> GetRoomCalendar(int year, int month, string roomId)
         {
-            var roomCallendar = DummyDataProvider.GetRoomCallendar(roomId, 10, year, month);
+            var roomCalendar = DummyDataProvider.GetRoomCalendar(roomId, 10, year, month);
 
-            return roomCallendar;
+            return roomCalendar;
         }
 
         [HttpGet("{roomId}")]
@@ -65,7 +65,7 @@ namespace Cellar.Api.Controllers
 
             return true;
         }
-
+        
         [HttpPut("{meetingId}")]
         [Route("UpdateMeeting/{meetingId}")]
         public bool UpdateMeeting(string meetingId, [FromBody]string value)

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cellar.Api.Models
 {
-    public class CallendarItem
+    public class CalendarItem
     {
         public DateTime Date { get; set; }
 
