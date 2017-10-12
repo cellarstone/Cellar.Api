@@ -49,8 +49,8 @@ namespace Cellar.Api.Controllers
         }
 
         [HttpPost]
-        [Route("PlaceOrder")]
-        public bool PlaceOrder([FromBody]string value)
+        [Route("ValidatePin")]
+        public bool ValidatePin([FromBody]string value)
         {
             return true;
         }
