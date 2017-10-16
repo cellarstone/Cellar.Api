@@ -16,6 +16,6 @@ namespace Cellar.Api.Business.Api
 
         List<CalendarItem> GetRoomCalendar(string roomId, int numberOfItems = 5, int? year = null, int? month = null);
 
-
+        List<SortimentItem> GetSortiment();
     }
 }

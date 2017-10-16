@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Cellar.Api.Models;
+using Cellar.Api.Models.Requests.Reception;
 
 namespace Cellar.Api.Controllers
 {
@@ -12,6 +13,7 @@ namespace Cellar.Api.Controllers
     [Route("api/Reception")]
     public class ReceptionController : ControllerBase
     {
+        
 
         [HttpGet("{roomId},{cleanType}")]
         [Route("CallForClean/{roomId}/{cleanType}")]
@@ -29,28 +31,33 @@ namespace Cellar.Api.Controllers
 
         [HttpPost("{roomId}")]
         [Route("SomethingElse/{roomId}")]
-        public bool SomethingElse(string roomId, [FromBody]string value)
+        public bool SomethingElse(string roomId, [FromBody]SomethingElseRequest value)
         {
+            var a = value;
+
+
             return true;
         }
 
         [HttpGet("{roomId}")]
         [Route("GetSortiment/{roomId}")]
-        public object GetSortiment(string roomId)
+        public List<SortimentItem> GetSortiment(string roomId)
         {
-            return true;
+            var sortiment = DummyDataProvider.GetSortiment();
+
+            return sortiment;
         }
 
         [HttpPost("{roomId}")]
         [Route("PlaceOrder/{roomId}")]
-        public bool PlaceOrder(string roomId, [FromBody]string value)
+        public bool PlaceOrder(string roomId, [FromBody]PlaceOrderRequest value)
         {
             return true;
         }
 
         [HttpPost]
         [Route("ValidatePin")]
-        public bool ValidatePin([FromBody]string value)
+        public bool ValidatePin([FromBody]object value)
         {
             return true;
         }

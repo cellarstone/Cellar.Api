@@ -55,5 +55,108 @@ namespace Cellar.Api.Business.Implementation
             return list;
         }
         #endregion
+
+        #region ReceptionController
+        public List<SortimentItem> GetSortiment()
+        {
+            var list = new List<SortimentItem>
+            {
+                new SortimentItem
+                {
+                    Id = "1",
+                    Name = "Brownies"
+                },
+                new SortimentItem
+                {
+                    Id = "2",
+                    Name = "Cookies"
+                },
+                new SortimentItem
+                {
+                    Id = "3",
+                    Name = "Apple"
+                },
+                new SortimentItem
+                {
+                    Id = "4",
+                    Name = "Chips"
+                },
+                new SortimentItem
+                {
+                    Id = "5",
+                    Name = "Tea",
+                    ChildItems = new List<SortimentItem>
+                    {
+                        new SortimentItem
+                        {
+                            Id = "10",
+                            Name = "Green"
+                        },
+                        new SortimentItem
+                        {
+                            Id = "11",
+                            Name = "Jasmine"
+                        },
+                        new SortimentItem
+                        {
+                            Id = "12",
+                            Name = "Black"
+                        }
+                    }
+                },
+                new SortimentItem
+                {
+                    Id = "6",
+                    Name = "Coffee",
+                    ChildItems = new List<SortimentItem>
+                    {
+                        new SortimentItem
+                        {
+                            Id = "13",
+                            Name = "Espresso"
+                        },
+                        new SortimentItem
+                        {
+                            Id = "14",
+                            Name = "Lungo"
+                        },
+                        new SortimentItem
+                        {
+                            Id = "15",
+                            Name = "Americano"
+                        },
+                        new SortimentItem
+                        {
+                            Id = "15",
+                            Name = "Latte"
+                        },
+                        new SortimentItem
+                        {
+                            Id = "15",
+                            Name = "Cappuccino"
+                        }
+                    }
+                },
+                new SortimentItem
+                {
+                    Id = "7",
+                    Name = "Water"
+                },
+                new SortimentItem
+                {
+                    Id = "8",
+                    Name = "Coca-Cola"
+                },
+                new SortimentItem
+                {
+                    Id = "9",
+                    Name = "Chewing gum"
+                }
+            };
+
+
+            return list;
+        }
+        #endregion
     }
 }
