@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cellar.Api.Models.Requests.Reception
 {
-    public class SomethingElseRequest : AuthenticatedPostRequestBase
+    public class ValidatePinRequest : RequestBase
     {
         /// <summary>
-        /// Message for reception
+        /// PIN code for validation
         /// </summary>
         [Required]
-        public string Message { get; set; }
+        public string Pin { get; set; }
     }
 }

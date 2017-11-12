@@ -8,6 +8,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Cellar.Api.DataAccess.Api.Repository;
+using Cellar.Api.DataAccess.Implementation.Repository;
+using Cellar.Api.Business.Dummy.Api;
+using Cellar.Api.Business.Reception.Api;
+using Cellar.Api.Business.Dummy.Implementation;
+using Cellar.Api.Business.Reception.Implementation;
+using Cellar.Api.Business.Authentication.Api;
+using Cellar.Api.Business.Authentication.Implementation;
+using Cellar.Api.ActionFilters.Authentication;
+using Cellar.Api.Business.Logging.Api;
+using Cellar.Api.Business.Logging.Implementation;
+using Cellar.Api.ActionFilters.Common;
+using Cellar.Api.ActionFilters.Logging;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Cellar.Api
 {
@@ -24,6 +38,25 @@ namespace Cellar.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("CellarApi", new Info { Title = "CellarApi", Description = "Cellarston web API for meetroom kiosk", Version = "1.0.0", Contact = new Contact { Name = "Ondřej Snop - Cellarstone", Email = "ondrej.snop@cellarstone.cz" } });
+            //});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
+
+            services.AddScoped<AuthenticatedRequestFilter>();
+            services.AddScoped<ActionFilterBase>();
+            services.AddScoped<LogActionFilter>();
+
+            services.AddTransient<IDummyDataProvider, DummyDataProvider>();
+            services.AddTransient<IReceptionManagement, ReceptionManagement>();
+            services.AddTransient<ISortimentItemsRepository, SortimentItemsRepository>();
+            services.AddTransient<IAuthenticationManagement, AuthenticationManagement>();
+            services.AddTransient<IActionLogsRepository, ActionLogsRepository>();
+            services.AddTransient<ILogManagement, LogManagement>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +67,18 @@ namespace Cellar.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             app.UseMvc();
+
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/documentation/swagger.json", "Cellar.Api v1.0.0");
+            //});
         }
     }
 }

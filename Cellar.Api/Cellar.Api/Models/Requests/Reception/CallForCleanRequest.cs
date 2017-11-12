@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cellar.Api.Models.Requests.Reception
 {
-    public class SomethingElseRequest : AuthenticatedPostRequestBase
+    public class CallForCleanRequest : RequestBase
     {
         /// <summary>
-        /// Message for reception
+        /// Selected type of clean
         /// </summary>
         [Required]
-        public string Message { get; set; }
+        public string CleanType { get; set; }
     }
 }

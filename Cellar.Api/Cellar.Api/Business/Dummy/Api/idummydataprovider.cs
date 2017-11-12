@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cellar.Api.Models;
 
-namespace Cellar.Api.Business.Api
+namespace Cellar.Api.Business.Dummy.Api
 {
     public interface IDummyDataProvider
     {
@@ -17,5 +17,7 @@ namespace Cellar.Api.Business.Api
         List<CalendarItem> GetRoomCalendar(string roomId, int numberOfItems = 5, int? year = null, int? month = null);
 
         List<SortimentItem> GetSortiment();
+
+        void SeedSortiment();
     }
 }

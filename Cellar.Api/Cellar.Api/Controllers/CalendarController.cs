@@ -13,39 +13,39 @@ namespace Cellar.Api.Controllers
     public class CalendarController : ControllerBase
     {
 
-        [HttpGet("{roomId}")]
+        [HttpGet("GetRoomCalendar/{roomId}")]
         [Route("GetRoomCalendar/{roomId}")]
-        public List<CalendarItem> GetRoomCalendar(string roomId)
+        public IActionResult GetRoomCalendarAAA([FromQuery]string roomId)
         {
             var roomCalendar = DummyDataProvider.GetRoomCalendar(roomId);
 
-            return roomCalendar;
+            return Ok(roomCalendar);
         }
 
         [HttpGet("{year},{month},{roomId}")]
         [Route("GetRoomCalendar/{year}/{month}/{roomId}")]
-        public List<CalendarItem> GetRoomCalendar(int year, int month, string roomId)
+        public IActionResult GetRoomCalendarBBB(int year, int month, string roomId)
         {
             var roomCalendar = DummyDataProvider.GetRoomCalendar(roomId, 10, year, month);
 
-            return roomCalendar;
+            return Ok(roomCalendar);
         }
 
         [HttpGet("{roomId}")]
         [Route("GetDayInfo/{year}/{month}/{day}/{roomId}")]
-        public DayInfo GetDayInfo(int year, int month, int day, string roomId)
+        public IActionResult GetDayInfo(int year, int month, int day, string roomId)
         {
             var dayInfo = new DayInfo
             {
                 Meetings = DummyDataProvider.GetRoomTimeline(roomId)
             };
 
-            return dayInfo;
+            return Ok(dayInfo);
         }
 
         [HttpGet("{meetingId}")]
         [Route("GetMeetingInfo/{meetingId}")]
-        public MeetingInfo GetMeetingInfo(string meetingId)
+        public IActionResult GetMeetingInfo(string meetingId)
         {
             var meetingInfo = new MeetingInfo
             {
@@ -54,33 +54,33 @@ namespace Cellar.Api.Controllers
                 MeetingEnd = DateTime.Now.AddHours(1)
             };
 
-            return meetingInfo;
+            return Ok(meetingInfo);
         }
 
         [HttpPost]
         [Route("AddNewMeeting")]
-        public bool AddNewMeeting([FromBody]string value)
+        public IActionResult AddNewMeeting([FromBody]string value)
         {
             //DateTime start, DateTime end, string name, string author, string roomId
 
-            return true;
+            return Ok(true);
         }
         
         [HttpPut("{meetingId}")]
         [Route("UpdateMeeting/{meetingId}")]
-        public bool UpdateMeeting(string meetingId, [FromBody]string value)
+        public IActionResult UpdateMeeting(string meetingId, [FromBody]string value)
         {
             //DateTime start, DateTime end, string name, string author, string roomId
 
-            return true;
+            return Ok(true);
         }
 
         [HttpDelete("{meetingId}")]
         [Route("DeleteMeeting/{meetingId}")]
-        public bool DeleteMeeting(string meetingId)
+        public IActionResult DeleteMeeting(string meetingId)
         {
 
-            return true;
+            return Ok(true);
         }
     }
 }

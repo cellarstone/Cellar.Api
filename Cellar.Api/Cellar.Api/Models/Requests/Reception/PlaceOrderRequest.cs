@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Cellar.Api.Models.Requests.Common;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cellar.Api.Models.Requests.Reception
 {
-    public class PlaceOrderRequest
+    public class PlaceOrderRequest : AuthenticatedPostRequestBase
     {
+        [Required]
         public List<OrderItem> Items { get; set; }
     }
 }

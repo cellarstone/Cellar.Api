@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cellar.Api.Business.Api
+namespace Cellar.Api.Models.Requests.Common
 {
-    interface IHomeManagement
+    public class RequestBase
     {
     }
 }

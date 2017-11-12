@@ -4,63 +4,206 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Cellar.Api.Models;
 using Cellar.Api.Models.Requests.Reception;
+using Cellar.Api.Business.Reception.Api;
+using Cellar.Api.ActionFilters.Authentication;
+using Cellar.Api.ActionFilters.Logging;
 
 namespace Cellar.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Reception")]
+    [ServiceFilter(typeof(AuthenticatedRequestFilter))]
+    [ServiceFilter(typeof(LogActionFilter))]
     public class ReceptionController : ControllerBase
     {
-        
+        #region --- injected resources ------------------------------------------------------------
+        private readonly IReceptionManagement receptionManagement;
+        #endregion
 
-        [HttpGet("{roomId},{cleanType}")]
-        [Route("CallForClean/{roomId}/{cleanType}")]
-        public bool CallForClean(string roomId, string cleanType)
+        #region --- ctor --------------------------------------------------------------------------
+        public ReceptionController(IReceptionManagement receptionManagement) 
         {
-            return true;
+            this.receptionManagement = receptionManagement;
+        }
+        #endregion
+
+        #region --- ReceptionController API -------------------------------------------------------
+        [HttpPost("{roomId}")]
+        [Route("CallForClean/{roomId}/{cleanType}")]
+        public IActionResult CallForClean(string roomId, [FromBody]CallForCleanRequest request)
+        {
+            if (string.IsNullOrEmpty(roomId) || request == null || !ModelState.IsValid)
+            {
+                //Bad request
+                return StatusCode(400);
+            }
+
+            try
+            {
+                var result = receptionManagement.CallForClean(roomId, request.CleanType);
+
+                if (result)
+                {
+                    // 201 OK - Created
+                    return StatusCode(201);
+                }
+
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
+            catch
+            {
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
         }
 
         [HttpGet("{roomId}")]
         [Route("CallForClean/{roomId}")]
-        public bool CallReception(string roomId)
+        public IActionResult CallReception(string roomId)
         {
-            return true;
+            if (string.IsNullOrWhiteSpace(roomId))
+            {
+                //Bad request
+                return StatusCode(400);
+            }
+
+            try
+            {
+                var result = receptionManagement.CallReception(roomId);
+
+                if (result)
+                {
+                    // 201 OK - Created
+                    return StatusCode(201);
+                }
+
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
+            catch
+            {
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
         }
 
         [HttpPost("{roomId}")]
         [Route("SomethingElse/{roomId}")]
-        public bool SomethingElse(string roomId, [FromBody]SomethingElseRequest value)
+        public IActionResult SomethingElse(string roomId, [FromBody]SomethingElseRequest request)
         {
-            var a = value;
+            if (string.IsNullOrEmpty(roomId) || request == null || !ModelState.IsValid)
+            {
+                //Bad request
+                return StatusCode(400);
+            }
 
+            try
+            {
+                var result = receptionManagement.SomethingElse(roomId, request.Message);
 
-            return true;
+                if (result)
+                {
+                    // 201 OK - Created
+                    return StatusCode(201);
+                }
+
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
+            catch
+            {
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
         }
 
         [HttpGet("{roomId}")]
         [Route("GetSortiment/{roomId}")]
-        public List<SortimentItem> GetSortiment(string roomId)
+        public IActionResult GetSortiment(string roomId)
         {
-            var sortiment = DummyDataProvider.GetSortiment();
+            if (string.IsNullOrEmpty(roomId))
+            {
+                //Bad request
+                return StatusCode(400);
+            }
 
-            return sortiment;
+            try
+            {
+                var mongoItems = receptionManagement.GetSortiment(roomId);
+                var sortiment = DummyDataProvider.GetSortiment();
+                
+                // 200 OK
+                return Ok(sortiment);
+            }
+            catch
+            {
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
+            
         }
 
         [HttpPost("{roomId}")]
         [Route("PlaceOrder/{roomId}")]
-        public bool PlaceOrder(string roomId, [FromBody]PlaceOrderRequest value)
+        public IActionResult PlaceOrder(string roomId, [FromBody]PlaceOrderRequest request)
         {
-            return true;
+            if (string.IsNullOrEmpty(roomId) || request == null || !ModelState.IsValid)
+            {
+                //Bad request
+                return StatusCode(400);
+            }
+
+            try
+            {
+                var result = receptionManagement.PlaceOrder(roomId, request);
+
+                if (result)
+                {
+                    // 201 OK - Created
+                    return StatusCode(201);
+                }
+
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
+            catch
+            {
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
         }
 
         [HttpPost]
         [Route("ValidatePin")]
-        public bool ValidatePin([FromBody]object value)
+        public IActionResult ValidatePin([FromBody]ValidatePinRequest request)
         {
-            return true;
-        }
+            if (request == null || !ModelState.IsValid)
+            {
+                //Bad request
+                return StatusCode(400);
+            }
 
+            try
+            {
+                var result = receptionManagement.ValidatePin(request.Pin);
+
+                if (result)
+                {
+                    // 200 OK - Created
+                    return StatusCode(200);
+                }
+
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
+            catch
+            {
+                // 500 ERR - Internal server error
+                return StatusCode(500);
+            }
+        }
+        #endregion
     }
 }

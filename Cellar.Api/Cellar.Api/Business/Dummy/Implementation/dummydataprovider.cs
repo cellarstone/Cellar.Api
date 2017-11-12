@@ -1,14 +1,22 @@
-﻿using Cellar.Api.Business.Api;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cellar.Api.Models;
+using Cellar.Api.DataAccess.Api.Repository;
+using Cellar.Api.DataAccess.Domain;
+using Cellar.Api.Business.Dummy.Api;
 
-namespace Cellar.Api.Business.Implementation
+namespace Cellar.Api.Business.Dummy.Implementation
 {
     public class DummyDataProvider : IDummyDataProvider
     {
+        private readonly ISortimentItemsRepository sortimentItemsRepository;
+
+        public DummyDataProvider(ISortimentItemsRepository sortimentItemsRepository)
+        {
+            this.sortimentItemsRepository = sortimentItemsRepository;
+        }
 
         #region HomeController
         public string GetRandomRoomState(string roomId)
@@ -157,6 +165,131 @@ namespace Cellar.Api.Business.Implementation
 
             return list;
         }
+
         #endregion
+
+        public void SeedSortiment()
+        {
+            
+            var sortimentItem = new BdoSortimentItem
+            {
+                Name = "Brownies",
+                Path = "/Brownies"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Cookies",
+                Path = "/Cookies"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Apple",
+                Path = "/Apple"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Chips",
+                Path = "/Chips"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Tea",
+                Path = "/Tea"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Black",
+                Path = "/Tea/Black"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Jasmine",
+                Path = "/Tea/Jasmine"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Green",
+                Path = "/Tea/Green"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Coffee",
+                Path = "/Coffee"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Esspresso",
+                Path = "/Coffee/Esspresso"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Esspresso lungo",
+                Path = "/Coffee/Esspresso"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Esspresso ristreto",
+                Path = "/Coffee/Esspresso"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Cappuccino",
+                Path = "/Coffee/Cappuccino"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Latte",
+                Path = "/Coffee/Latte"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Watter",
+                Path = "/Watter"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Coca-Cola",
+                Path = "/Coca-Cola"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+            sortimentItem = new BdoSortimentItem
+            {
+                Name = "Chewing gum",
+                Path = "/ChewingGum"
+            };
+            sortimentItemsRepository.Add(sortimentItem);
+
+        }
     }
 }
